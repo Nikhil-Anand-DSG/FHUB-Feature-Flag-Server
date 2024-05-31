@@ -13,12 +13,12 @@ public class DemoApplication {
 	@RestController
 	@RefreshScope  // To refresh configuration dynamically
 	public class FeatureFlagsController {
-		@Value("${test}")
-		private String featureFlags;
+		@Value("${FEATURE_FLAG_TEST}")
+		private String test;
 
-		@GetMapping("/featureFlags")
+		@GetMapping("/test")
 		public String getFeatureFlags() {
-			return featureFlags;
+			return test;
 		}
 	}
 	public static void main(String[] args) {

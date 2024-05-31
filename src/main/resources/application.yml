@@ -1,0 +1,8 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env,refresh
+  endpoint:
+    env:
+      show-values: ALWAYS
