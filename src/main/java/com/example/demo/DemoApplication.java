@@ -14,9 +14,13 @@ import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @EnableScheduling  // Add the annotation here
@@ -25,13 +29,20 @@ public class DemoApplication {
 	@RestController
 	@RefreshScope  // To refresh configuration dynamically
 	@Scope("prototype")
+	@CrossOrigin(origins = "*") // Allow requests from any origin
 	public class FeatureFlagsController {
 		@Value("${FEATURE_FLAG_TEST}")
-		private String test;
+		private String FEATURE_FLAG_TEST;
 
-		@GetMapping("/test")
-		public String getFeatureFlags() {
-			return test;
+		@Value("${FEATURE_FLAG_TEST2}")
+		private String FEATURE_FLAG_TEST2;
+
+		@GetMapping("/featureFlags")
+		public Map<String, String> getFeatureFlags() {
+			Map<String, String> featureFlagsMap = new HashMap<>();
+			featureFlagsMap.put("FEATURE_FLAG_TEST", FEATURE_FLAG_TEST);
+			featureFlagsMap.put("FEATURE_FLAG_TEST2", FEATURE_FLAG_TEST2);
+			return featureFlagsMap;
 		}
 	}
 	@Configuration
@@ -49,7 +60,7 @@ public class DemoApplication {
 		@Autowired
 		private RestTemplate restTemplate;
 
-		@Scheduled(fixedDelay = 60000) // Refresh every minute.
+		@Scheduled(fixedDelay = 6000) // Refresh every minute.
 		public void refreshConfig() {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON); // Add this line
