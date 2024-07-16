@@ -32,7 +32,7 @@ public class FeatureFlagServer {
 	@CrossOrigin(origins = "*") // Allow requests from any origin
 	public class FeatureFlagsController {
 		@Value("${SAME_DAY_AGED_PICKUP}")
-		private String FEATURE_FLAG_TEST;
+		private String SAME_DAY_AGED_PICKUP;
 
 //		@Value("${FEATURE_FLAG_TEST2}")
 //		private String FEATURE_FLAG_TEST2;
@@ -40,7 +40,7 @@ public class FeatureFlagServer {
 		@GetMapping("/featureFlags")
 		public Map<String, String> getFeatureFlags() {
 			Map<String, String> featureFlagsMap = new HashMap<>();
-			featureFlagsMap.put("SAME_DAY_AGED_PICKUP", FEATURE_FLAG_TEST);
+			featureFlagsMap.put("SAME_DAY_AGED_PICKUP", SAME_DAY_AGED_PICKUP);
 //			featureFlagsMap.put("FEATURE_FLAG_TEST2", FEATURE_FLAG_TEST2);
 			return featureFlagsMap;
 		}
