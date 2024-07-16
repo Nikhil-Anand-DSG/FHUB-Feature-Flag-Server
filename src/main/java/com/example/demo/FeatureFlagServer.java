@@ -31,17 +31,17 @@ public class FeatureFlagServer {
 	@Scope("prototype")
 	@CrossOrigin(origins = "*") // Allow requests from any origin
 	public class FeatureFlagsController {
-		@Value("${FEATURE_FLAG_TEST}")
+		@Value("${SAME_DAY_AGED_PICKUP}")
 		private String FEATURE_FLAG_TEST;
 
-		@Value("${FEATURE_FLAG_TEST2}")
-		private String FEATURE_FLAG_TEST2;
+//		@Value("${FEATURE_FLAG_TEST2}")
+//		private String FEATURE_FLAG_TEST2;
 
 		@GetMapping("/featureFlags")
 		public Map<String, String> getFeatureFlags() {
 			Map<String, String> featureFlagsMap = new HashMap<>();
-			featureFlagsMap.put("FEATURE_FLAG_TEST", FEATURE_FLAG_TEST);
-			featureFlagsMap.put("FEATURE_FLAG_TEST2", FEATURE_FLAG_TEST2);
+			featureFlagsMap.put("SAME_DAY_AGED_PICKUP", FEATURE_FLAG_TEST);
+//			featureFlagsMap.put("FEATURE_FLAG_TEST2", FEATURE_FLAG_TEST2);
 			return featureFlagsMap;
 		}
 	}
