@@ -25,7 +25,7 @@ import java.util.Map;
 @SpringBootApplication
 @EnableScheduling  // Add the annotation here
 
-public class DemoApplication {
+public class FeatureFlagServer {
 	@RestController
 	@RefreshScope  // To refresh configuration dynamically
 	@Scope("prototype")
@@ -60,16 +60,16 @@ public class DemoApplication {
 		@Autowired
 		private RestTemplate restTemplate;
 
-		@Scheduled(fixedDelay = 6000) // Refresh every minute.
+		@Scheduled(fixedDelay = 3000) // Refresh 30 seconds.
 		public void refreshConfig() {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON); // Add this line
+			headers.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity<String> entity = new HttpEntity<>(headers);
-			restTemplate.postForEntity("http://localhost:8082/actuator/refresh", entity, Void.class);			}
+			restTemplate.postForEntity("https://feature-flag-server.apps.an01.pcf.dcsg.com/actuator/refresh", entity, Void.class);			}
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(FeatureFlagServer.class, args);
 	}
 }
 

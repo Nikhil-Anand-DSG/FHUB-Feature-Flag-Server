@@ -1,0 +1,7 @@
+applications:
+  - name: feature-flag-server
+    instances: 1
+    buildpack: java-buildpack-v4_54
+    path: target/featureFlagServer-0.0.1-SNAPSHOT.jar
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 17.+ } }'
